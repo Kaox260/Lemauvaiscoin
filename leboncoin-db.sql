@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : lun. 07 avr. 2025 à 10:24
+-- Généré le : lun. 07 avr. 2025 à 10:47
 -- Version du serveur : 8.0.40
 -- Version de PHP : 8.3.14
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `leboncoin`
 --
+CREATE DATABASE IF NOT EXISTS `leboncoin` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `leboncoin`;
 
 -- --------------------------------------------------------
 
