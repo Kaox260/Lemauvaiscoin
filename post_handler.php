@@ -1,5 +1,10 @@
 <?php
 // Configuration
+@session_start(); // Conserver uniquement ici
+
+if (!isset($_SESSION['user_id'])) {
+    die("Vous devez être connecté pour créer une annonce");
+}
 $upload_dir = 'uploads/';
 $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
 $max_size = 2 * 1024 * 1024; // 2MB
@@ -72,15 +77,60 @@ if(!empty($errors)) {
     exit;
 }
 
-// Insertion en BDD
-$sql = "INSERT INTO annonces (titre, description, prix, ville, categorie, image)
-        VALUES ('$titre', '$description', $prix, '$ville', '$categorie', " 
-        . ($image_path ? "'$image_path'" : "NULL") . ")";
 
-if(mysqli_query($conn, $sql)) {
-    header("Location: index.php");
-} else {
-    header("Location: post_form.php?error=" . urlencode('Erreur base de données'));
+$check_user = $conn->prepare("SELECT id FROM users WHERE id = ?");
+$check_user->bind_param("i", $_SESSION['user_id']);
+$check_user->execute();
+if (!$check_user->get_result()->num_rows) {
+    die("Utilisateur invalide");
 }
 
+
+if ($_POST['action'] === 'create') {
+    $stmt = $conn->prepare("INSERT INTO annonces (
+        titre, description, prix, ville, 
+        categorie, image, user_id
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    
+    $stmt->bind_param("ssdsssi",
+        $_POST['titre'],
+        $_POST['description'],
+        $_POST['prix'],
+        $_POST['ville'],
+        $_POST['categorie'],
+        $imagePath, // Gérer l'upload séparément
+        $_SESSION['user_id']
+    );
+}
+
+if ($_POST['action'] === 'update') {
+    $stmt = $conn->prepare("UPDATE annonces SET
+        titre = ?, description = ?, prix = ?,
+        ville = ?, categorie = ?, image = COALESCE(?, image)
+        WHERE id = ? AND user_id = ?");
+    
+    $stmt->bind_param("ssdsssii",
+        $_POST['titre'],
+        $_POST['description'],
+        $_POST['prix'],
+        $_POST['ville'],
+        $_POST['categorie'],
+        $newImage,
+        $_POST['id'],
+        $_SESSION['user_id']
+    );
+}
+
+if($stmt->execute()) {
+    header("Location: home.php?update=success");
+} else {
+    header("Location: home.php?update=error");
+}
+exit();
+
+if(mysqli_query($conn, $sql)) {
+header("Location: index.php");
+} else {
+header("Location: post_form.php?error=" . urlencode('Erreur base de données'));
+}
 mysqli_close($conn);

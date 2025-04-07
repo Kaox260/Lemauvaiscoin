@@ -7,16 +7,29 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$user_id = $_SESSION['user_id'];
+
+// Vérifier si l'utilisateur existe dans la base
+$checkUser = $conn->prepare("SELECT id FROM users WHERE id = ?");
+$checkUser->bind_param("i", $user_id);
+$checkUser->execute();
+$checkUserResult = $checkUser->get_result();
+
+if ($checkUserResult->num_rows === 0) {
+    session_destroy(); // Détruit la session si l'utilisateur n'existe plus
+    header('Location: index.php');
+    exit;
+}
+
 if (isset($_POST['annonce_id'])) {
-    $user_id = $_SESSION['user_id'];
     $annonce_id = (int)$_POST['annonce_id'];
     
     // Vérifier si l'annonce existe
-    $check = $conn->prepare("SELECT id FROM annonces WHERE id = ?");
-    $check->bind_param("i", $annonce_id);
-    $check->execute();
+    $checkAnnonce = $conn->prepare("SELECT id FROM annonces WHERE id = ?");
+    $checkAnnonce->bind_param("i", $annonce_id);
+    $checkAnnonce->execute();
     
-    if ($check->get_result()->num_rows > 0) {
+    if ($checkAnnonce->get_result()->num_rows > 0) {
         // Toggle favori
         $existing = $conn->prepare("SELECT * FROM user_favoris WHERE user_id = ? AND annonce_id = ?");
         $existing->bind_param("ii", $user_id, $annonce_id);

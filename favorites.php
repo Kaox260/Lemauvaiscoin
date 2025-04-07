@@ -1,6 +1,6 @@
 <?php
-session_start(); // Conserver uniquement ici
 require_once __DIR__ . '/includes/db.php';
+@session_start(); // Conserver uniquement ici
 
 // Vérifier la connexion utilisateur
 if (!isset($_SESSION['user_id'])) {
@@ -47,13 +47,6 @@ $conn->close();
     <meta charset="UTF-8">
     <title>Mes favoris</title>
     <style>
-        /* Reprendre le même CSS que home.php */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
         
         .annonces-container {
             display: grid;
@@ -92,14 +85,19 @@ $conn->close();
         <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>❤️ Mes annonces favorites</h1>
-        <nav style="margin-bottom: 20px;">
-            <a href="home.php">Accueil</a> |
-            <a href="favorites.php">Favoris</a> |
-            <a href="logout.php">Déconnexion</a>
-        </nav>
-    </header>
+<header>
+    <h1>🛍️ LeBonCoin Clone</h1>
+    <div style="text-align: center; margin-top: 1rem;">
+        <input type="text" placeholder="Rechercher..." style="padding: 0.5rem; width: 300px; border-radius: 20px; border: 1px solid #ddd;">
+        <button style="padding: 0.5rem 1.5rem; background: white; border: none; border-radius: 20px; margin-left: 0.5rem;">🔍</button>
+    </div>
+    <nav style="display: flex; justify-content: center; gap: 2rem; margin-top: 1rem;">
+        <a href="home.php" style="color: white; text-decoration: none;">Accueil</a>
+        <a href="favorites.php" style="color: white; text-decoration: underline;">Favoris</a>
+        <a href="my_ads.php" style="color: white; text-decoration: none;">Mes annonces</a>
+        <a href="logout.php" style="color: white; text-decoration: none;">Déconnexion</a>
+    </nav>
+</header>
 
     <?php if ($error): ?>
         <div class="error-message"><?= htmlspecialchars($error) ?></div>

@@ -97,6 +97,46 @@ form button:hover {
     color: white;
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.new-post-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+}
+.edit-btn {
+background: #4CAF50;
+color: white;
+padding: 8px 16px;
+border-radius: 4px;
+text-decoration: none;
+display: inline-block;
+margin-top: 10px;
+}
+
 /* Date publication */
 small {
     display: block;
