@@ -166,34 +166,6 @@ $result = mysqli_query($conn, $sql);
     </style>
     <link rel="stylesheet" href="styles.css">
 </head>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const filtres = document.querySelectorAll('.filtre-btn');
-    const annonces = document.querySelectorAll('.annonce');
-    
-    filtres.forEach(filtre => {
-        filtre.addEventListener('click', function() {
-            // Retire la classe active de tous les boutons
-            filtres.forEach(btn => btn.classList.remove('active'));
-            // Ajoute la classe active au bouton cliqué
-            this.classList.add('active');
-            
-            const categorie = this.dataset.categorie;
-            
-            // Filtre les annonces
-            annonces.forEach(annonce => {
-                const annonceCategorie = annonce.querySelector('p:nth-of-type(3)').textContent.replace('Catégorie : ', '');
-                
-                if (categorie === 'toutes' || annonceCategorie === categorie) {
-                    annonce.style.display = 'block';
-                } else {
-                    annonce.style.display = 'none';
-                }
-            });
-        });
-    });
-});
-</script>
 <body>
 <header>
     <h1>🛍️ LeBonCoin Clone</h1>
@@ -295,13 +267,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <?php endif; ?>
     </div>
     <?php endwhile; ?>
-    <div class="filtres-categorie">
-    <button class="filtre-btn active" data-categorie="toutes">Toutes</button>
-    <button class="filtre-btn" data-categorie="Maison">Maison</button>
-    <button class="filtre-btn" data-categorie="Sport">Sport</button>
-    <button class="filtre-btn" data-categorie="Vehicules">Véhicules</button>
-    <button class="filtre-btn" data-categorie="Multimedia">Multimédia</button>
-</div>
 </div>
 
 

@@ -25,32 +25,21 @@ Si ce message est affiché, le projet est cloné
 
 #### Installer la Base de données
 
-Pour installer la Base de données, il faut ouvrir dans votre ordinateur le fichier ``schema-bdd.sql``qui est situé dans le projet. 
+Pour installer la Base de données, retrouvez le fichier `leboncoin.sql` dans notre projet
 
-Une fois le fichier ``schema-bdd.sql`` ouvert, copiez tout le contenu du fichier et rendez-vous dans PHP-My-Admin, qui est généralement a cette adresse mais _*il se peut que votre adresse soit différente, tout depends de votre serveur PHP*_ :
+Une fois le chemin du fichier rendez-vous dans PHP-My-Admin, qui est généralement a cette adresse mais _*il se peut que votre adresse soit différente, tout depends de votre serveur PHP*_ :
 
 ``http://localhost:8888/phpMyAdmin5/``
 
-Uns fois sur votre page d'acceuil PHP my Admin rendez-vous à gauche de votre page et cliquez sur 
+Uns fois sur votre page d'acceuil PHP my Admin rendez-vous en haut de votre page et cliquez sur 
 
-``"Nouvelle base de données"``
+``"Importer"``
 
 Une fois cliqué, cliquez maintenant au millieu de l'éran sur : 
 
-``" Création d'une base de données Documentation"``
+``"Choisir un fichier"``
 
-et renommez votre base de données : 
-
-``leboncoin
-``
-
-sans espaces ni majuscules
-
-cliquez sur "Créer"
-
-Puis sur `SQL` en haut de votre écran
-
-Et collez l'integralité du fichier ``schema-bdd.sql`` dans l'espace d'écriture puis cliquer sur : ``Exécuter``
+Et descendez en bas de votre page et cliquez sur importer
 
 Et voila, votre base de données est installé 
 
